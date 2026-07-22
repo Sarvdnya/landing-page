@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retenzy — Loyalty &amp; Rewards for Shopify Brands</title>
+<meta name="description" content="Retenzy helps Shopify brands increase repeat purchases, customer retention, referrals, and customer lifetime value with powerful loyalty programs.">
+
+<!-- ============================================================
+     FONTS — Plus Jakarta Sans (display/UI) + Inter (body/data)
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   0. DESIGN TOKENS
+   ============================================================ */
+:root{
+  --color-primary:#0937ed;
+  --color-primary-dark:#0a2bb8;
+  --color-accent:#e0816b;
+  --color-accent-dark:#c9694f;
+  --color-bg:#ffffff;
+  --color-bg-light:#f8f9fc;
+  --color-ink:#0c1130;
+  --color-ink-soft:#4a4f6b;
+  --color-line:#e7e9f3;
+  --color-success:#1aab6b;
+
+  --font-display:'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body:'Inter', system-ui, sans-serif;
+
+  --radius-sm:12px;
+  --radius-md:16px;
+  --radius-lg:24px;
+  --radius-pill:999px;
+
+  --shadow-sm:0 2px 8px rgba(12,17,48,.06);
+  --shadow-md:0 12px 32px rgba(12,17,48,.10);
+  --shadow-lg:0 24px 64px rgba(12,17,48,.16);
+
+  --container:1240px;
+  --header-h:76px;
+
+  --ease:cubic-bezier(.16,.84,.44,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--color-ink);
+  background:var(--color-bg);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--color-ink);margin:0;line-height:1.15;letter-spacing:-.02em;}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+ul{margin:0;padding:0;list-style:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+:focus-visible{outline:3px solid var(--color-accent);outline-offset:2px;border-radius:4px;}
+.container{max-width:var(--container);margin:0 auto;padding:0 24px;}
+.section{padding:100px 0;}
+@media (max-width:768px){ .section{padding:64px 0;} }
+.section-light{background:var(--color-bg-light);}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--color-primary);background:rgba(9,55,237,.07);
+  padding:6px 14px;border-radius:var(--radius-pill);margin-bottom:18px;
+}
+.section-head{max-width:640px;margin:0 auto 56px;text-align:center;}
+.section-head h2{font-size:clamp(28px,4vw,42px);margin-bottom:16px;}
+.section-head p{font-size:17px;color:var(--color-ink-soft);}
+
+/* Buttons */
+.btn{
+  position:relative;overflow:hidden;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:700;font-size:15px;font-family:var(--font-display);
+  padding:14px 26px;border-radius:var(--radius-pill);
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+  white-space:nowrap;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{
+  background:linear-gradient(135deg, var(--color-primary), #3d5bff);
+  color:#fff;box-shadow:0 8px 24px rgba(9,55,237,.28);
+}
+.btn-primary:hover{box-shadow:0 12px 32px rgba(9,55,237,.4);transform:translateY(-2px);}
+.btn-secondary{
+  background:#fff;color:var(--color-ink);border:1.5px solid var(--color-line);
+}
+.btn-secondary:hover{border-color:var(--color-primary);color:var(--color-primary);transform:translateY(-2px);}
+.btn-accent{
+  background:linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  color:#fff;box-shadow:0 8px 24px rgba(224,129,107,.35);
+}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(224,129,107,.45);}
+.btn-sm{padding:11px 20px;font-size:14px;}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:ripple-anim .6s linear;pointer-events:none;}
+@keyframes ripple-anim{to{transform:scale(3);opacity:0;}}
+
+/* ============================================================
+   1. HEADER
+   ============================================================ */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:var(--header-h);
+  display:flex;align-items:center;
+  background:rgba(255,255,255,.7);
+  border-bottom:1px solid transparent;
+  transition:background .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.site-header.scrolled{
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  border-bottom-color:var(--color-line);
+  box-shadow:0 4px 24px rgba(12,17,48,.05);
+}
+.header-inner{
+  width:100%;max-width:var(--container);margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:20px;color:var(--color-ink);}
+.logo-mark{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--color-primary),var(--color-accent));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0;
+}
+.logo-img{height:42px;width:auto;display:block;flex-shrink:0;}
+.brand-text{font-family:var(--font-display);font-weight:800;font-size:clamp(22px,2.8vw,30px);line-height:1;vertical-align:middle;}
+.footer-brand .brand-text{font-size:24px;}
+.brand-orange{color:#F97316;}
+.brand-blue{color:#2563EB;}
+.main-nav{display:flex;}
+.main-nav ul{display:flex;gap:4px;}
+.main-nav a{
+  font-size:14.5px;font-weight:600;color:var(--color-ink-soft);
+  padding:9px 14px;border-radius:var(--radius-pill);
+  transition:color .2s, background .2s;
+  position:relative;
+}
+.main-nav a:hover{color:var(--color-ink);background:var(--color-bg-light);}
+.main-nav a.active{color:var(--color-primary);background:rgba(9,55,237,.08);}
+.header-actions{display:flex;align-items:center;gap:10px;}
+.hamburger{
+  display:none;width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;
+  background:var(--color-bg-light);
+}
+.hamburger span{display:block;width:20px;height:2px;background:var(--color-ink);position:relative;transition:background .2s;}
+.hamburger span::before,.hamburger span::after{
+  content:'';position:absolute;left:0;width:20px;height:2px;background:var(--color-ink);transition:transform .3s var(--ease), top .3s var(--ease);
+}
+.hamburger span::before{top:-6px;}
+.hamburger span::after{top:6px;}
+.hamburger.open span{background:transparent;}
+.hamburger.open span::before{top:0;transform:rotate(45deg);}
+.hamburger.open span::after{top:0;transform:rotate(-45deg);}
+
+@media (max-width:960px){
+  .main-nav{
+    position:fixed;top:var(--header-h);left:0;right:0;bottom:0;
+    background:#fff;padding:20px 24px 40px;
+    transform:translateY(-12px);opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .3s var(--ease), transform .3s var(--ease), visibility .3s;
+    overflow-y:auto;
+  }
+  .main-nav.open{opacity:1;transform:translateY(0);visibility:visible;pointer-events:auto;}
+  .main-nav ul{flex-direction:column;gap:2px;}
+  .main-nav a{display:block;padding:14px 16px;font-size:16px;border-bottom:1px solid var(--color-line);border-radius:0;}
+  .header-actions .btn-secondary{display:none;}
+  .hamburger{display:flex;}
+}
+@media (max-width:520px){
+  .header-actions .btn-primary span.long{display:none;}
+}
+
+/* ============================================================
+   3. HERO
+   ============================================================ */
+#hero{padding:140px 0 80px;}
+@media (max-width:768px){#hero{padding:120px 0 56px;}}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+@media (max-width:860px){.hero-inner{grid-template-columns:1fr;gap:48px;}}
+.hero-copy h1{font-size:clamp(34px,5vw,54px);margin-bottom:20px;letter-spacing:-.03em;}
+.hero-copy h1 em{color:var(--color-primary);font-style:normal;}
+.hero-copy .sub{font-size:17px;color:var(--color-ink-soft);line-height:1.7;margin-bottom:32px;max-width:520px;}
+@media (max-width:860px){.hero-copy .sub{max-width:none;}}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
+.trust-badges{display:flex;gap:24px;flex-wrap:wrap;}
+.trust-badge{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--color-ink-soft);}
+.trust-badge .stars{color:#f5b342;letter-spacing:2px;}
+.hero-visual{display:flex;align-items:center;justify-content:center;}
+.loyalty-orbit{position:relative;width:340px;height:340px;display:flex;align-items:center;justify-content:center;}
+@media (max-width:860px){.loyalty-orbit{width:280px;height:280px;}}
+.orbit-ring{position:absolute;inset:0;border-radius:50%;border:1.5px dashed var(--color-line);animation:orbit-spin 30s linear infinite;}
+.orbit-ring.r2{inset:40px;animation-duration:22s;animation-direction:reverse;}
+@media (max-width:860px){.orbit-ring.r2{inset:30px;}}
+@keyframes orbit-spin{to{transform:rotate(360deg);}}
+.orbit-node{position:absolute;width:48px;height:48px;border-radius:50%;background:#fff;border:1.5px solid var(--color-line);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;font-size:22px;}
+.orbit-node.n1{top:0;left:50%;transform:translate(-50%,-50%);}
+.orbit-node.n2{right:0;top:50%;transform:translate(50%,-50%);}
+.orbit-node.n3{bottom:0;left:50%;transform:translate(-50%,50%);}
+.orbit-node.n4{left:0;top:50%;transform:translate(-50%,-50%);}
+@media (max-width:860px){.orbit-node{width:40px;height:40px;font-size:18px;}}
+.orbit-core{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--color-primary),#3d5bff);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(9,55,237,.3);text-align:center;gap:2px;}
+@media (max-width:860px){.orbit-core{width:100px;height:100px;}}
+.orbit-core strong{font-family:var(--font-display);font-size:22px;font-weight:800;line-height:1;}
+@media (max-width:860px){.orbit-core strong{font-size:18px;}}
+.orbit-core span{font-size:11px;opacity:.8;font-weight:500;}
+
+/* ============================================================
+   4. SOCIAL PROOF / KPI
+   ============================================================ */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media (max-width:860px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+.kpi-card{
+  background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-lg);
+  padding:32px 24px;text-align:center;transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.kpi-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
+.kpi-num{font-family:var(--font-display);font-size:clamp(28px,3.4vw,40px);font-weight:800;color:var(--color-primary);}
+.kpi-label{margin-top:6px;font-size:14px;color:var(--color-ink-soft);font-weight:600;}
+
+/* ============================================================
+   4. LOGO CAROUSEL
+   ============================================================ */
+.logo-strip{overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+.logo-track{display:flex;gap:64px;width:max-content;animation:marquee 28s linear infinite;}
+.logo-strip:hover .logo-track{animation-play-state:paused;}
+.logo-track span{
+  font-family:var(--font-display);font-weight:700;font-size:19px;color:#b7bcd6;
+  display:flex;align-items:center;white-space:nowrap;
+}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ============================================================
+   5. GENERIC CARD GRID (problem / features / integrations)
+   ============================================================ */
+.card-grid{display:grid;gap:24px;}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-5{grid-template-columns:repeat(5,1fr);}
+@media (max-width:960px){.grid-4{grid-template-columns:repeat(2,1fr);} .grid-3{grid-template-columns:repeat(2,1fr);} .grid-5{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:600px){.grid-4,.grid-3,.grid-5{grid-template-columns:repeat(2,1fr);}}
+
+.feature-card{
+  background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-lg);
+  padding:30px 26px;transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+}
+.feature-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:transparent;}
+.feature-icon{
+  width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:18px;
+  background:linear-gradient(135deg, rgba(9,55,237,.1), rgba(224,129,107,.14));
+}
+.feature-card h3{font-size:18px;margin-bottom:8px;}
+.feature-card p{font-size:14.5px;color:var(--color-ink-soft);}
+
+/* Benefits */
+.benefit-row{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:20px;
+}
+@media (max-width:960px){.benefit-row{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:600px){.benefit-row{grid-template-columns:1fr;}}
+.benefit-card{
+  text-align:center;padding:28px 18px;border-radius:var(--radius-md);
+  background:var(--color-bg-light);transition:background .3s, transform .3s var(--ease);
+}
+.benefit-card:hover{background:#fff;box-shadow:var(--shadow-sm);transform:translateY(-4px);}
+.benefit-num{font-family:var(--font-display);font-weight:800;font-size:26px;color:var(--color-accent);margin-bottom:10px;}
+.benefit-card p{font-size:14.5px;font-weight:600;}
+
+/* Integrations */
+.integration-card{
+  background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-md);
+  padding:32px 20px 28px;display:flex;flex-direction:column;align-items:center;gap:12px;
+  text-align:center;transition:transform .3s var(--ease), box-shadow .3s;
+}
+.integration-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);}
+.integration-icon{display:flex;align-items:center;justify-content:center;height:48px;}
+.integration-icon img{height:40px;width:auto;max-width:130px;object-fit:contain;display:block;}
+.integration-card strong{font-size:15px;}
+.integration-sub{font-size:12.5px;color:var(--color-ink-soft);font-weight:500;line-height:1.3;}
+
+/* ============================================================
+   6. HOW IT WORKS — TIMELINE
+   ============================================================ */
+.timeline{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+@media (max-width:960px){.timeline{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:600px){.timeline{grid-template-columns:1fr;}}
+.timeline::before{
+  content:'';position:absolute;top:26px;left:0;right:0;height:2px;
+  background:repeating-linear-gradient(90deg, var(--color-line) 0 8px, transparent 8px 14px);
+}
+@media (max-width:600px){.timeline::before{display:none;}}
+.timeline-step{position:relative;text-align:center;padding-top:0;}
+.timeline-dot{
+  width:52px;height:52px;border-radius:50%;background:#fff;border:2px solid var(--color-primary);
+  color:var(--color-primary);font-family:var(--font-display);font-weight:800;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px;position:relative;z-index:1;
+}
+.timeline-step:nth-child(4) .timeline-dot,.timeline-step:nth-child(5) .timeline-dot,.timeline-step:nth-child(6) .timeline-dot{
+  background:var(--color-primary);color:#fff;
+}
+.timeline-step h3{font-size:15px;margin-bottom:6px;}
+.timeline-step p{font-size:13px;color:var(--color-ink-soft);}
+
+/* ============================================================
+   7. ROI CALCULATOR
+   ============================================================ */
+.roi-panel{
+  background:linear-gradient(135deg,#0c1a6b,var(--color-primary));
+  border-radius:var(--radius-lg);padding:56px;color:#fff;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  box-shadow:var(--shadow-lg);
+}
+@media (max-width:900px){.roi-panel{grid-template-columns:1fr;padding:36px 24px;}}
+.roi-field{margin-bottom:24px;}
+.roi-field label{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:10px;opacity:.9;}
+.roi-field output{font-family:var(--font-display);font-weight:800;color:#ffd7cd;}
+input[type=range]{
+  width:100%;-webkit-appearance:none;height:6px;border-radius:4px;
+  background:rgba(255,255,255,.25);outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3);
+  border:4px solid var(--color-accent);
+}
+input[type=range]::-moz-range-thumb{
+  width:20px;height:20px;border-radius:50%;background:#fff;cursor:pointer;border:4px solid var(--color-accent);
+}
+.roi-result{text-align:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-md);padding:40px 24px;}
+.roi-result span{font-size:13px;text-transform:uppercase;letter-spacing:.08em;opacity:.8;font-weight:700;}
+.roi-result strong{display:block;font-family:var(--font-display);font-size:clamp(34px,4vw,52px);font-weight:800;margin:10px 0;color:#fff;}
+.roi-result small{font-size:13px;opacity:.75;}
+
+/* ============================================================
+   8. REVIEWS — horizontal carousel
+   ============================================================ */
+.review-wrapper{position:relative;}
+.review-scroll{
+  display:flex;gap:24px;overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+}
+.review-scroll::-webkit-scrollbar{display:none;}
+.review-scroll{-ms-overflow-style:none;scrollbar-width:none;}
+.review-card{
+  flex-shrink:0;scroll-snap-align:start;
+  width:400px;max-width:85vw;
+  background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-lg);
+  padding:30px;display:flex;flex-direction:column;gap:16px;
+  transition:transform .3s var(--ease), box-shadow .3s;
+}
+.review-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
+.review-card .stars{font-size:15px;}
+.review-card .company-logo{
+  height:40px;width:auto;object-fit:contain;display:block;
+  margin-bottom:4px;
+}
+.review-quote{font-size:15px;color:var(--color-ink);flex-grow:1;line-height:1.65;}
+.review-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  width:44px;height:44px;border-radius:50%;
+  background:#fff;border:1px solid var(--color-line);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s, box-shadow .2s, opacity .2s;
+  opacity:.85;box-shadow:var(--shadow-sm);font-size:18px;color:var(--color-ink);
+}
+.review-nav:hover{opacity:1;box-shadow:var(--shadow-md);background:var(--color-bg-light);}
+.review-nav-prev{left:-20px;}
+.review-nav-next{right:-20px;}
+@media (max-width:1100px){.review-nav-prev{left:-14px;}.review-nav-next{right:-14px;}}
+@media (max-width:640px){.review-nav{display:none;}}
+
+@media (max-width:900px){
+  .review-card{width:380px;}
+}
+@media (max-width:640px){
+  .review-card{width:85vw;}
+}
+
+/* ============================================================
+   9. VIDEO SECTION
+   ============================================================ */
+.video-wrap{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);
+  aspect-ratio:16/9;background:#0c1130;
+}
+.video-thumb{
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:transform .5s var(--ease);
+}
+.video-wrap:hover .video-thumb{transform:scale(1.03);}
+.video-thumb::after{content:'';position:absolute;inset:0;background:rgba(12,17,48,.35);}
+.play-btn{
+  position:relative;z-index:1;width:84px;height:84px;border-radius:50%;
+  background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;
+  font-size:0;transition:transform .3s var(--ease), background .3s;box-shadow:0 8px 30px rgba(0,0,0,.3);
+}
+.play-btn::before{
+  content:'';width:0;height:0;border-style:solid;border-width:14px 0 14px 22px;
+  border-color:transparent transparent transparent var(--color-primary);margin-left:6px;
+}
+.video-wrap:hover .play-btn{transform:scale(1.1);background:#fff;}
+.video-wrap iframe{width:100%;height:100%;border:0;display:none;}
+.video-wrap.playing .video-thumb{display:none;}
+.video-wrap.playing iframe{display:block;}
+
+/* ============================================================
+   11. FAQ ACCORDION
+   ============================================================ */
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+.faq-item{border:1px solid var(--color-line);border-radius:var(--radius-md);overflow:hidden;background:#fff;}
+.faq-q{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:20px 24px;text-align:left;font-weight:700;font-size:15.5px;font-family:var(--font-display);
+}
+.faq-q .icon{flex-shrink:0;width:22px;height:22px;position:relative;}
+.faq-q .icon::before,.faq-q .icon::after{content:'';position:absolute;background:var(--color-primary);border-radius:2px;transition:transform .3s var(--ease);}
+.faq-q .icon::before{width:14px;height:2px;top:10px;left:4px;}
+.faq-q .icon::after{width:2px;height:14px;left:10px;top:4px;}
+.faq-item.open .faq-q .icon::after{transform:rotate(90deg);opacity:0;}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease);}
+.faq-a-inner{padding:0 24px 22px;font-size:14.5px;color:var(--color-ink-soft);}
+
+/* ============================================================
+   12. FINAL CTA
+   ============================================================ */
+.final-cta{
+  background:linear-gradient(135deg, var(--color-ink) 0%, #131a4a 60%, var(--color-primary) 130%);
+  border-radius:var(--radius-lg);padding:70px 40px;text-align:center;color:#fff;
+  position:relative;overflow:hidden;
+}
+.final-cta::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(600px 300px at 90% 10%, rgba(224,129,107,.35), transparent 60%);
+}
+.final-cta h2{color:#fff;font-size:clamp(26px,4vw,40px);margin-bottom:14px;position:relative;}
+.final-cta p{color:rgba(255,255,255,.75);margin-bottom:32px;position:relative;}
+.final-cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;}
+
+/* ============================================================
+   13. FOOTER
+   ============================================================ */
+.site-footer{background:var(--color-ink);color:rgba(255,255,255,.65);padding:64px 0 28px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1);}
+@media (max-width:800px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:520px){.footer-grid{grid-template-columns:1fr;}}
+.footer-grid h4{color:#fff;font-size:14px;margin-bottom:16px;letter-spacing:.03em;}
+.footer-grid ul{display:flex;flex-direction:column;gap:10px;}
+.footer-grid a{font-size:14px;transition:color .2s;}
+.footer-grid a:hover{color:#fff;}
+.footer-brand p{font-size:14px;max-width:280px;margin-top:14px;}
+.footer-socials{display:flex;gap:10px;margin-top:20px;}
+.footer-socials a{
+  width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;font-size:15px;transition:background .2s;
+}
+.footer-socials a:hover{background:var(--color-primary);color:#fff;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:26px;font-size:13px;}
+.footer-bottom ul{display:flex;gap:20px;}
+
+/* ============================================================
+   14. MODAL
+   ============================================================ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(12,17,48,.55);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;padding:20px;z-index:1200;
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease), visibility .3s;
+}
+.modal-overlay.open{opacity:1;visibility:visible;}
+.modal-box{
+  background:#fff;border-radius:var(--radius-lg);max-width:520px;width:100%;
+  padding:36px;position:relative;max-height:90vh;overflow-y:auto;
+  transform:translateY(24px) scale(.97);transition:transform .35s var(--ease);
+  box-shadow:var(--shadow-lg);
+}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
+.modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;background:var(--color-bg-light);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--color-ink-soft);}
+.modal-close:hover{background:var(--color-line);}
+.modal-box h3{font-size:22px;margin-bottom:6px;}
+.modal-box p.modal-sub{font-size:14px;color:var(--color-ink-soft);margin-bottom:24px;}
+
+.field{position:relative;margin-bottom:20px;}
+.field input,.field select{
+  width:100%;padding:18px 16px 8px;border:1.5px solid var(--color-line);border-radius:var(--radius-sm);
+  font-size:15px;font-family:var(--font-body);background:#fff;color:var(--color-ink);transition:border-color .2s;
+}
+.field select{appearance:none;}
+.field input:focus,.field select:focus{border-color:var(--color-primary);outline:none;}
+.field label{
+  position:absolute;left:16px;top:18px;font-size:15px;color:var(--color-ink-soft);
+  pointer-events:none;transition:all .18s var(--ease);background:#fff;padding:0 4px;
+}
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label,
+.field select:focus + label,
+.field select.filled + label{
+  top:-9px;font-size:12px;font-weight:600;color:var(--color-primary);
+}
+.field .err{display:none;color:#d13c3c;font-size:12.5px;margin-top:6px;}
+.field.invalid input,.field.invalid select{border-color:#d13c3c;}
+.field.invalid .err{display:block;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:480px){.field-row{grid-template-columns:1fr;}}
+.modal-submit{width:100%;justify-content:center;margin-top:6px;}
+.modal-success{display:none;text-align:center;padding:20px 0;}
+.modal-success.show{display:block;}
+.modal-success .check{
+  width:76px;height:76px;border-radius:50%;background:rgba(26,171,107,.12);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+  animation:pop .4s var(--ease);
+}
+@keyframes pop{0%{transform:scale(.5);opacity:0;}100%{transform:scale(1);opacity:1;}}
+.modal-success svg{width:36px;height:36px;}
+.modal-success h3{margin-bottom:8px;}
+.modal-success p{color:var(--color-ink-soft);font-size:14.5px;}
+.modal-form.hide{display:none;}
+
+/* ============================================================
+   15. SCROLL REVEAL
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease), transform .7s var(--ease);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-stagger.in > *{opacity:1;transform:translateY(0);}
+.reveal-stagger > *{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease), transform .6s var(--ease);}
+.reveal-stagger.in > *:nth-child(1){transition-delay:.05s;}
+.reveal-stagger.in > *:nth-child(2){transition-delay:.12s;}
+.reveal-stagger.in > *:nth-child(3){transition-delay:.19s;}
+.reveal-stagger.in > *:nth-child(4){transition-delay:.26s;}
+.reveal-stagger.in > *:nth-child(5){transition-delay:.33s;}
+.reveal-stagger.in > *:nth-child(6){transition-delay:.4s;}
+
+.skip-link{
+  position:absolute;left:-999px;top:0;background:#fff;color:var(--color-primary);padding:12px 20px;
+  border-radius:8px;z-index:2000;font-weight:700;
+}
+.skip-link:focus{left:16px;top:16px;}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#main" class="logo" aria-label="Retenzy home">
+      <img src="public/assets/retenzylogo.png" alt="Retenzy" class="logo-img">
+      <span class="brand-text"><span class="brand-orange">Reten</span><span class="brand-blue">zy</span></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <ul>
+        <li><a href="#features" data-section="features">Features</a></li>
+        <li><a href="#benefits" data-section="benefits">Benefits</a></li>
+        <li><a href="#integrations" data-section="integrations">Integrations</a></li>
+        <li><a href="#customers" data-section="customers">Customers</a></li>
+        <li><a href="#reviews" data-section="reviews">Reviews</a></li>
+        <li><a href="#faq" data-section="faq">FAQ</a></li>
+        <li><a href="#footer" data-section="footer">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="btn btn-secondary btn-sm js-open-modal">Book Demo</button>
+      <button class="btn btn-primary btn-sm js-open-modal"><span class="long">Start&nbsp;</span>Free Trial</button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mainNav">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="section" id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-copy reveal in">
+        <h1>Turn First-Time Buyers Into <em>Lifetime Customers</em></h1>
+
+        <p class="sub">
+          Retenzy helps Shopify brands increase repeat purchases, customer retention,
+          referrals, and customer lifetime value with powerful loyalty programs.
+        </p>
+
+        <div class="hero-ctas">
+          <button class="btn btn-primary js-open-modal">
+            Start Free Trial
+          </button>
+
+          <button class="btn btn-secondary js-open-modal">
+            Book Demo
+          </button>
+        </div>
+
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <span class="stars">★★★★★</span>
+            Shopify Merchants
+          </div>
+
+          <div class="trust-badge">
+            🌍 30+ Countries
+          </div>
+
+          <div class="trust-badge">
+            ⚡ Fast Setup
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="loyalty-orbit">
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring r2"></div>
+
+          <div class="orbit-node n1">🎁</div>
+          <div class="orbit-node n2">⭐</div>
+          <div class="orbit-node n3">🔁</div>
+          <div class="orbit-node n4">💳</div>
+
+          <div class="orbit-core">
+            <strong id="orbitPoints">12,480</strong>
+            <span>Points earned</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SOCIAL PROOF — KPI CARDS
+     ============================================================ -->
+<section class="section" aria-label="Retenzy by the numbers">
+  <div class="container">
+    <div class="kpi-grid reveal-stagger reveal">
+      <div class="kpi-card">
+        <div class="kpi-num" data-count="4200" data-suffix="+">0</div>
+        <div class="kpi-label">Shopify Stores</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num" data-count="34" data-suffix="+">0</div>
+        <div class="kpi-label">Countries</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num" data-count="18" data-suffix="M+">0</div>
+        <div class="kpi-label">Reward Points Issued</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num" data-count="4.9" data-decimal="1" data-suffix="/5">0</div>
+        <div class="kpi-label">Merchant Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LOGO CAROUSEL
+     ============================================================ -->
+<section class="section-light" style="padding:48px 0;" aria-label="Trusted by">
+  <div class="container">
+    <p style="text-align:center;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-ink-soft);margin-bottom:28px;">Trusted by growing Shopify brands</p>
+  </div>
+  <div class="logo-strip">
+    <div class="logo-track" id="logoTrack">
+      <!-- duplicated via JS for seamless loop -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROBLEM SECTION
+     ============================================================ -->
+<section class="section" id="problem">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Problem</span>
+      <h2>Most Shopify stores lose customers after one purchase</h2>
+      <p>Acquiring new customers keeps getting more expensive — while the buyers you already won walk away and never come back.</p>
+    </div>
+    <div class="card-grid grid-4 reveal-stagger reveal">
+      <div class="feature-card">
+        <div class="feature-icon">📉</div>
+        <h3>Low Repeat Rate</h3>
+        <p>Most first-time buyers never return, leaving revenue on the table every month.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💸</div>
+        <h3>Rising Ad Costs</h3>
+        <p>Paid acquisition costs keep climbing, squeezing margins on every new order.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>No Referral Engine</h3>
+        <p>Happy customers aren't incentivized to tell friends, so word-of-mouth stalls.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>No Visibility</h3>
+        <p>Merchants can't see who's loyal, who's at risk, or what's actually driving LTV.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURES SECTION
+     ============================================================ -->
+<section class="section section-light" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Features</span>
+      <h2>Everything you need to build lasting loyalty</h2>
+      <p>A complete loyalty toolkit, built for Shopify and ready to launch in minutes.</p>
+    </div>
+    <div class="card-grid grid-4 reveal-stagger reveal">
+      <div class="feature-card"><div class="feature-icon">🏆</div><h3>Reward Points</h3><p>Let customers earn points on purchases, signups, and social actions.</p></div>
+      <div class="feature-card"><div class="feature-icon">👑</div><h3>VIP Membership</h3><p>Tiered VIP programs that reward your best customers automatically.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔗</div><h3>Referral Program</h3><p>Turn happy customers into your best acquisition channel.</p></div>
+      <div class="feature-card"><div class="feature-icon">💳</div><h3>Store Credits</h3><p>Issue and redeem store credit seamlessly at checkout.</p></div>
+      <div class="feature-card"><div class="feature-icon">✍️</div><h3>Reviews</h3><p>Collect and reward verified reviews to build trust and points.</p></div>
+      <div class="feature-card"><div class="feature-icon">🎂</div><h3>Birthday Rewards</h3><p>Automated birthday perks that keep customers engaged year-round.</p></div>
+      <div class="feature-card"><div class="feature-icon">📈</div><h3>Analytics</h3><p>Real-time dashboards on LTV, repeat rate, and program ROI.</p></div>
+      <div class="feature-card"><div class="feature-icon">🎮</div><h3>Gamification</h3><p>Badges, streaks, and challenges that make earning rewards fun.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BENEFITS SECTION
+     ============================================================ -->
+<section class="section" id="benefits">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Benefits</span>
+      <h2>Outcomes merchants actually care about</h2>
+      <p>Retenzy is built to move the metrics that drive sustainable growth.</p>
+    </div>
+    <div class="benefit-row reveal-stagger reveal">
+      <div class="benefit-card"><div class="benefit-num">↑ 34%</div><p>Repeat Purchases</p></div>
+      <div class="benefit-card"><div class="benefit-num">↑ 28%</div><p>Customer LTV</p></div>
+      <div class="benefit-card"><div class="benefit-num">↑ 19%</div><p>Average Order Value</p></div>
+      <div class="benefit-card"><div class="benefit-num">↓ 22%</div><p>Customer Acquisition Cost</p></div>
+      <div class="benefit-card"><div class="benefit-num">↑ 41%</div><p>Referrals</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INTEGRATIONS SECTION
+     ============================================================ -->
+<section class="section section-light" id="integrations">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Integrations</span>
+      <h2>Plays nicely with your existing stack</h2>
+      <p>Connect Retenzy to the tools you already use — no dev work required.</p>
+    </div>
+    <div class="card-grid grid-5 reveal-stagger reveal">
+      <div class="integration-card">
+        <div class="integration-icon"><img src="public/assets/integrations/klaviyo.svg" alt="Klaviyo" loading="lazy"></div>
+        <strong>Klaviyo</strong>
+        <span class="integration-sub">Email &amp; SMS</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon"><img src="public/assets/integrations/sendgrid.svg" alt="SendGrid" loading="lazy"></div>
+        <strong>SendGrid</strong>
+        <span class="integration-sub">Transactional Email</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon"><img src="public/assets/integrations/mailchimp.svg" alt="Mailchimp" loading="lazy"></div>
+        <strong>Mailchimp</strong>
+        <span class="integration-sub">Email Marketing</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon"><img src="public/assets/integrations/omnisend.png" alt="Omnisend" loading="lazy"></div>
+        <strong>Omnisend</strong>
+        <span class="integration-sub">Omnichannel Marketing</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon"><img src="public/assets/integrations/zendesk.svg" alt="Zendesk" loading="lazy"></div>
+        <strong>Zendesk</strong>
+        <span class="integration-sub">Customer Support</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW IT WORKS — TIMELINE
+     ============================================================ -->
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">How It Works</span>
+      <h2>From install to repeat revenue</h2>
+      <p>Six simple steps take you from setup to a loyalty program that runs itself.</p>
+    </div>
+    <div class="timeline reveal-stagger reveal">
+      <div class="timeline-step"><div class="timeline-dot">1</div><h3>Install</h3><p>Add Retenzy from the Shopify App Store in one click.</p></div>
+      <div class="timeline-step"><div class="timeline-dot">2</div><h3>Customize</h3><p>Match your brand's colors, copy, and reward structure.</p></div>
+      <div class="timeline-step"><div class="timeline-dot">3</div><h3>Launch</h3><p>Publish your loyalty widget to your live storefront.</p></div>
+      <div class="timeline-step"><div class="timeline-dot">4</div><h3>Customers Earn</h3><p>Shoppers earn points on orders, referrals, and actions.</p></div>
+      <div class="timeline-step"><div class="timeline-dot">5</div><h3>Customers Redeem</h3><p>Points convert into discounts and store credit at checkout.</p></div>
+      <div class="timeline-step"><div class="timeline-dot">6</div><h3>Repeat Revenue</h3><p>Loyal customers return more often and spend more per order.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ROI CALCULATOR
+     ============================================================ -->
+<section class="section section-light" id="roi">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">ROI Calculator</span>
+      <h2>See what loyalty could be worth to you</h2>
+      <p>Drag the sliders to estimate the extra revenue a loyalty program could unlock.</p>
+    </div>
+    <div class="roi-panel reveal">
+      <div class="roi-inputs">
+        <div class="roi-field">
+          <label for="roiOrders">Monthly Orders <output id="roiOrdersOut">1,200</output></label>
+          <input type="range" id="roiOrders" min="50" max="20000" step="50" value="1200">
+        </div>
+        <div class="roi-field">
+          <label for="roiAOV">Average Order Value <output id="roiAOVOut">$65</output></label>
+          <input type="range" id="roiAOV" min="10" max="500" step="5" value="65">
+        </div>
+        <div class="roi-field">
+          <label for="roiRepeat">Repeat Purchase Rate <output id="roiRepeatOut">22%</output></label>
+          <input type="range" id="roiRepeat" min="5" max="70" step="1" value="22">
+        </div>
+      </div>
+      <div class="roi-result">
+        <span>Potential Additional Annual Revenue</span>
+        <strong id="roiResultOut">$0</strong>
+        <small>Estimated from a 30% lift in repeat purchases, based on your inputs</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CUSTOMER REVIEWS
+     ============================================================ -->
+<section class="section" id="customers">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Customers</span>
+      <h2 id="reviews">Merchants growing with Retenzy</h2>
+      <p>Real results from real Shopify brands running Retenzy today.</p>
+    </div>
+    <div class="review-wrapper">
+      <button class="review-nav review-nav-prev" aria-label="Previous reviews">‹</button>
+      <button class="review-nav review-nav-next" aria-label="Next reviews">›</button>
+      <div class="review-scroll reveal-stagger reveal" id="reviewScroll">
+        <div class="review-card">
+          <img class="company-logo" src="public/assets/logos/aarshaveda.png" alt="Aarshaveda" loading="lazy">
+          <div class="stars" aria-hidden="true">⭐⭐⭐⭐⭐</div>
+          <p class="review-quote">&ldquo;I am extremely pleased with this rewards program app for Shopify. The support team is excellent and always attentive to my needs. Highly recommend this app!&rdquo;</p>
+        </div>
+        <div class="review-card">
+          <img class="company-logo" src="public/assets/logos/perfect-look-health.png" alt="Perfect Look &amp; Health" loading="lazy">
+          <div class="stars" aria-hidden="true">⭐⭐⭐⭐⭐</div>
+          <p class="review-quote">&ldquo;The app has worked perfectly well for us since we installed it. I had a few small issues when we started working with the app, but I contacted customer service and Yash was quick to help with expert suggestions. They also helped us set up rewards and deals properly.&rdquo;</p>
+        </div>
+        <div class="review-card">
+          <img class="company-logo" src="public/assets/logos/herbal-magic.png" alt="Herbal Magic" loading="lazy">
+          <div class="stars" aria-hidden="true">⭐⭐⭐⭐⭐</div>
+          <p class="review-quote">&ldquo;We have been using the Retenzy Reward &amp; Review app for a few months and have not had any problems. It has all the functions needed for a points-based rewards program.&rdquo;</p>
+        </div>
+        <div class="review-card">
+          <img class="company-logo" src="public/assets/logos/green-organic-supplements.png" alt="Green Organic Supplements" loading="lazy">
+          <div class="stars" aria-hidden="true">⭐⭐⭐⭐⭐</div>
+          <p class="review-quote">&ldquo;The overall experience has been fantastic. The onboarding process was seamless, and the team has been very cooperative from the beginning. We are already seeing positive results with our store and would highly recommend Retenzy to anyone looking for the best loyalty program app.&rdquo;</p>
+        </div>
+        <div class="review-card">
+          <img class="company-logo" src="public/assets/logos/shiraesthetics.png" alt="Shiraesthetics" loading="lazy">
+          <div class="stars" aria-hidden="true">⭐⭐⭐⭐⭐</div>
+          <p class="review-quote">&ldquo;We have been happy with the Retenzy app on our website! The app is easy to use and navigate, and we were thrilled that we could seamlessly import our existing Amazon reviews. The recent upgrade, which displays star ratings and review counts directly on the product page, is a fantastic improvement for building customer trust.&rdquo;</p>
+        </div>
+        <div class="review-card">
+          <img class="company-logo" src="public/assets/logos/molly-international.png" alt="Molly International" loading="lazy">
+          <div class="stars" aria-hidden="true">⭐⭐⭐⭐⭐</div>
+          <p class="review-quote">&ldquo;The Loyalty feature is amazing, and the best part is the excellent customer support. They were always available whenever I needed help with the setup. The Reviews feature also works perfectly on our product landing pages.&rdquo;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     VIDEO SECTION
+     ============================================================ -->
+<section class="section section-light" id="video">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">See It In Action</span>
+      <h2>Watch how Retenzy works in 90 seconds</h2>
+      <p>A quick walkthrough of setup, customer experience, and merchant dashboard.</p>
+    </div>
+    <div class="video-wrap reveal" id="videoWrap" style="max-width:920px;margin:0 auto;">
+      <div class="video-thumb" id="videoThumb" style="background-image:url('https://img.youtube.com/vi/G1kIFxpWIpk/maxresdefault.jpg');" role="button" tabindex="0" aria-label="Play product demo video">
+        <div class="play-btn"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="section section-light" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Frequently asked questions</h2>
+      <p>Everything you need to know before getting started with Retenzy.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How long does setup take? <span class="icon"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Most stores are fully live within a day. Install from the Shopify App Store, customize your widget, and publish — no developer required.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does Retenzy work with my theme? <span class="icon"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Retenzy is compatible with all Shopify 2.0 themes and integrates directly into your storefront without custom code.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I customize the reward structure? <span class="icon"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. Points earning rules, VIP tiers, referral rewards, and redemption values are all fully configurable from your dashboard.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What happens if I cancel? <span class="icon"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">You can cancel anytime. Your customer data exports cleanly, and there are no long-term contracts or cancellation fees.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Is there a free trial? <span class="icon"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — every plan starts with a free trial so you can launch your program and see results before committing.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="section">
+  <div class="container">
+    <div class="final-cta reveal">
+      <h2>Ready to Grow Your Customer Loyalty?</h2>
+      <p>Join thousands of Shopify merchants turning one-time buyers into lifelong customers.</p>
+      <div class="final-cta-actions">
+        <button class="btn btn-secondary js-open-modal">Book Demo</button>
+        <button class="btn btn-accent js-open-modal">Start Free Trial</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <img src="public/assets/retenzylogo.png" alt="Retenzy" class="logo-img">
+          <span class="brand-text"><span class="brand-orange">Reten</span><span class="brand-blue">zy</span></span>
+        </div>
+        <p>Loyalty &amp; rewards for Shopify brands that want customers to come back.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Retenzy on X">𝕏</a>
+          <a href="#" aria-label="Retenzy on Instagram">◎</a>
+          <a href="#" aria-label="Retenzy on LinkedIn">in</a>
+          <a href="#" aria-label="Retenzy on YouTube">▶</a>
+        </div>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#features">About</a></li>
+          <li><a href="#customers">Customers</a></li>
+          <li><a href="#footer">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#integrations">Integrations</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#roi">ROI Calculator</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#footer">Help Center</a></li>
+          <li><a href="#footer">Contact Us</a></li>
+          <li><a href="#footer">System Status</a></li>
+          <li><a href="#footer">Book Demo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Retenzy. All rights reserved.</span>
+      <ul>
+        <li><a href="#footer">Privacy</a></li>
+        <li><a href="#footer">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     MODAL POPUP (shared by every CTA button)
+     ============================================================ -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Close dialog">✕</button>
+
+    <div id="modalFormWrap">
+      <h3 id="modalTitle">Start your free trial</h3>
+      <p class="modal-sub">Tell us a bit about your store and we'll get you set up.</p>
+
+      <form id="leadForm" class="modal-form" novalidate>
+        <div class="field">
+          <input type="text" id="f-name" placeholder=" " autocomplete="name" required>
+          <label for="f-name">Full Name</label>
+          <span class="err">Please enter your full name.</span>
+        </div>
+        <div class="field">
+          <input type="email" id="f-email" placeholder=" " autocomplete="email" required>
+          <label for="f-email">Work Email</label>
+          <span class="err">Please enter a valid work email.</span>
+        </div>
+        <div class="field">
+          <input type="tel" id="f-phone" placeholder=" " autocomplete="tel">
+          <label for="f-phone">Phone Number (optional)</label>
+        </div>
+        <div class="field">
+          <input type="text" id="f-store" placeholder=" " required>
+          <label for="f-store">Store URL</label>
+          <span class="err">Please enter your Shopify store URL.</span>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <input type="number" id="f-orders" placeholder=" " min="0" required>
+            <label for="f-orders">Monthly Orders</label>
+            <span class="err">Required.</span>
+          </div>
+          <div class="field">
+            <select id="f-country" required>
+              <option value="" disabled selected></option>
+              <option>United States</option>
+              <option>United Kingdom</option>
+              <option>Canada</option>
+              <option>Australia</option>
+              <option>India</option>
+              <option>Germany</option>
+              <option>Other</option>
+            </select>
+            <label for="f-country">Country</label>
+            <span class="err">Please select your country.</span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary modal-submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="modal-success" id="modalSuccess">
+      <div class="check">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5L9.5 18L20 6" stroke="#1aab6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>You're all set!</h3>
+      <p>Thanks for reaching out — our team will contact you shortly to get your loyalty program started.</p>
+      <button class="btn btn-secondary" id="modalDoneBtn" style="margin-top:22px;">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG — edit only this object to rebrand or repoint links.
+   Nothing below this block needs to change for content updates.
+   ============================================================ */
+const CONFIG = {
+  companyName: "Retenzy",
+
+  // Video section: swap this single URL and the embed updates everywhere.
+  youtubeVideoURL: "https://www.youtube.com/embed/G1kIFxpWIpk",
+
+  // Logos shown in the auto-scrolling trust strip.
+  trustedLogos: ["Perfume Project", "Preetiwear", "Discover Skon", "Boditronics", "Lashribbons", "Asoka.pt", "Trekmonk", "Resolve", "Hashwear", "Homeyou"],
+  demoLink: "#footer",
+  freeTrialLink: "#footer"
+};
+
+/* ============================================================
+   INIT — apply CONFIG to the DOM
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  document.title = `${CONFIG.companyName} — Loyalty & Rewards for Shopify Brands`;
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  renderLogoCarousel();
+  setupVideo();
+  setupReviewCarousel();
+});
+
+/* ---------- Logo carousel (duplicated for seamless marquee) ---------- */
+function renderLogoCarousel(){
+  const track = document.getElementById('logoTrack');
+  const logos = [...CONFIG.trustedLogos, ...CONFIG.trustedLogos]; // duplicate for loop
+  track.innerHTML = logos.map(name => `<span>${escapeHTML(name)}</span>`).join('');
+}
+
+function escapeHTML(str){
+  const div = document.createElement('div');
+  div.textContent = str ?? '';
+  return div.innerHTML;
+}
+function escapeAttr(str){ return (str ?? '').replace(/"/g,'&quot;'); }
+
+/* ---------- Video: lazy-load iframe from CONFIG.youtubeVideoURL ---------- */
+function setupVideo(){
+  const wrap = document.getElementById('videoWrap');
+  const thumb = document.getElementById('videoThumb');
+
+  function playVideo(){
+    if (wrap.classList.contains('playing')) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = CONFIG.youtubeVideoURL + (CONFIG.youtubeVideoURL.includes('?') ? '&' : '?') + 'autoplay=1&rel=0';
+    iframe.title = 'Retenzy product demo video';
+    iframe.loading = 'lazy';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    wrap.appendChild(iframe);
+    wrap.classList.add('playing');
+  }
+  thumb.addEventListener('click', playVideo);
+  thumb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playVideo(); } });
+}
+
+/* ---------- Review carousel: wheel scroll + arrow nav ---------- */
+function setupReviewCarousel(){
+  const scrollEl = document.getElementById('reviewScroll');
+  if (!scrollEl) return;
+
+  scrollEl.addEventListener('wheel', e => {
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    scrollEl.scrollBy({ left: delta, behavior: 'auto' });
+    e.preventDefault();
+  }, { passive: false });
+
+  const cardWidth = () => {
+    const card = scrollEl.querySelector('.review-card');
+    if (!card) return 420;
+    const style = getComputedStyle(card);
+    return card.offsetWidth + parseInt(style.marginRight || '0');
+  };
+
+  scrollEl.parentElement.querySelector('.review-nav-prev')?.addEventListener('click', () => {
+    scrollEl.scrollBy({ left: -cardWidth() - 24, behavior: 'smooth' });
+  });
+
+  scrollEl.parentElement.querySelector('.review-nav-next')?.addEventListener('click', () => {
+    scrollEl.scrollBy({ left: cardWidth() + 24, behavior: 'smooth' });
+  });
+}
+
+/* ============================================================
+   HEADER: scroll blur + active-section highlighting
+   ============================================================ */
+const header = document.getElementById('siteHeader');
+const navLinks = Array.from(document.querySelectorAll('.main-nav a'));
+const sections = navLinks
+  .map(link => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+function onScroll(){
+  header.classList.toggle('scrolled', window.scrollY > 8);
+
+  let currentId = sections[0]?.id;
+  const scrollPos = window.scrollY + var_headerOffset();
+  for (const sec of sections){
+    if (sec.offsetTop <= scrollPos) currentId = sec.id;
+  }
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.dataset.section === currentId);
+  });
+}
+function var_headerOffset(){
+  return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) + 40;
+}
+window.addEventListener('scroll', onScroll, { passive:true });
+onScroll();
+
+/* ============================================================
+   MOBILE NAV / HAMBURGER
+   ============================================================ */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mainNav = document.getElementById('mainNav');
+
+hamburgerBtn.addEventListener('click', () => {
+  const isOpen = mainNav.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', isOpen);
+  hamburgerBtn.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+navLinks.forEach(link => link.addEventListener('click', () => {
+  mainNav.classList.remove('open');
+  hamburgerBtn.classList.remove('open');
+  hamburgerBtn.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}));
+
+/* ============================================================
+   RIPPLE EFFECT ON BUTTONS
+   ============================================================ */
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', function(e){
+    const rect = this.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 650);
+  });
+});
+
+/* ============================================================
+   SCROLL-REVEAL ANIMATIONS (Intersection Observer)
+   ============================================================ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting){
+      entry.target.classList.add('in');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ============================================================
+   ANIMATED COUNT-UP (KPI cards)
+   ============================================================ */
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting){
+      animateCount(entry.target);
+      countObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.kpi-num').forEach(el => countObserver.observe(el));
+
+function animateCount(el){
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || '0');
+  const suffix = el.dataset.suffix || '';
+  const duration = 1400;
+  const start = performance.now();
+
+  function tick(now){
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = target * eased;
+    el.textContent = (decimals ? value.toFixed(decimals) : Math.floor(value).toLocaleString()) + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+document.querySelectorAll('.faq-item').forEach(item => {
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  q.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    // close all others
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      if (openItem !== item){
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+        openItem.querySelector('.faq-a').style.maxHeight = null;
+      }
+    });
+    item.classList.toggle('open', !isOpen);
+    q.setAttribute('aria-expanded', String(!isOpen));
+    a.style.maxHeight = !isOpen ? a.scrollHeight + 'px' : null;
+  });
+});
+
+/* ============================================================
+   ROI CALCULATOR
+   ============================================================ */
+const roiOrders = document.getElementById('roiOrders');
+const roiAOV = document.getElementById('roiAOV');
+const roiRepeat = document.getElementById('roiRepeat');
+const roiOrdersOut = document.getElementById('roiOrdersOut');
+const roiAOVOut = document.getElementById('roiAOVOut');
+const roiRepeatOut = document.getElementById('roiRepeatOut');
+const roiResultOut = document.getElementById('roiResultOut');
+
+function calcROI(){
+  const orders = parseInt(roiOrders.value);
+  const aov = parseInt(roiAOV.value);
+  const repeat = parseInt(roiRepeat.value);
+
+  roiOrdersOut.textContent = orders.toLocaleString();
+  roiAOVOut.textContent = '$' + aov;
+  roiRepeatOut.textContent = repeat + '%';
+
+  // Model: current repeat revenue, then apply a 30% uplift from loyalty program.
+  const monthlyRevenue = orders * aov;
+  const repeatRevenue = monthlyRevenue * (repeat / 100);
+  const upliftedRepeatRevenue = repeatRevenue * 1.30;
+  const additionalMonthly = upliftedRepeatRevenue - repeatRevenue;
+  const additionalAnnual = Math.round(additionalMonthly * 12);
+
+  animateRoiResult(additionalAnnual);
+}
+function animateRoiResult(target){
+  const duration = 500;
+  const start = performance.now();
+  const from = parseInt((roiResultOut.textContent || '0').replace(/[^0-9]/g,'')) || 0;
+  function tick(now){
+    const progress = Math.min((now - start) / duration, 1);
+    const value = Math.round(from + (target - from) * progress);
+    roiResultOut.textContent = '$' + value.toLocaleString();
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+[roiOrders, roiAOV, roiRepeat].forEach(input => input.addEventListener('input', calcROI));
+calcROI();
+
+/* ============================================================
+   MODAL POPUP LOGIC
+   ============================================================ */
+const modalOverlay = document.getElementById('modalOverlay');
+const modalClose = document.getElementById('modalClose');
+const modalDoneBtn = document.getElementById('modalDoneBtn');
+const modalFormWrap = document.getElementById('modalFormWrap');
+const modalSuccess = document.getElementById('modalSuccess');
+const leadForm = document.getElementById('leadForm');
+let lastFocusedEl = null;
+
+function openModal(){
+  lastFocusedEl = document.activeElement;
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('f-name').focus(), 300);
+}
+function closeModal(){
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  if (lastFocusedEl) lastFocusedEl.focus();
+}
+document.querySelectorAll('.js-open-modal').forEach(btn => btn.addEventListener('click', openModal));
+modalClose.addEventListener('click', closeModal);
+modalDoneBtn.addEventListener('click', () => {
+  closeModal();
+  setTimeout(resetModal, 400);
+});
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
+});
+
+function resetModal(){
+  leadForm.reset();
+  leadForm.classList.remove('hide');
+  modalSuccess.classList.remove('show');
+  document.querySelectorAll('.field.invalid').forEach(f => f.classList.remove('invalid'));
+  document.querySelectorAll('.field select').forEach(s => s.classList.remove('filled'));
+}
+
+/* ---------- Validation ---------- */
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function setFieldValidity(fieldEl, valid){
+  fieldEl.classList.toggle('invalid', !valid);
+}
+
+leadForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let valid = true;
+
+  const name = document.getElementById('f-name');
+  const email = document.getElementById('f-email');
+  const store = document.getElementById('f-store');
+  const orders = document.getElementById('f-orders');
+  const country = document.getElementById('f-country');
+
+  const checks = [
+    [name, name.value.trim().length > 1],
+    [email, emailPattern.test(email.value.trim())],
+    [store, store.value.trim().length > 2],
+    [orders, orders.value !== '' && parseInt(orders.value) >= 0],
+    [country, country.value !== '']
+  ];
+
+  checks.forEach(([el, ok]) => {
+    setFieldValidity(el.closest('.field'), ok);
+    if (!ok) valid = false;
+  });
+
+  if (!valid) return;
+
+  // Simulate submission — replace with a real request to your backend/CRM.
+  leadForm.classList.add('hide');
+  modalSuccess.classList.add('show');
+});
+
+// Keep floating labels correctly positioned for <select> (no :placeholder-shown support)
+document.getElementById('f-country').addEventListener('change', function(){
+  this.classList.toggle('filled', this.value !== '');
+});
+</script>
+
+</body>
+</html>
