@@ -37,7 +37,8 @@
         <li><a href="#integrations" data-section="integrations">Integrations</a></li>
         <li><a href="#customers" data-section="customers">Customers</a></li>
         <li><a href="#faq" data-section="faq">FAQ</a></li>
-        <li><a href="#footer" data-section="footer">Contact</a></li>
+       <li><a href="#pricing" data-section="pricing">Pricing</a></li>
+        <li><a href="#contact" data-section="contact">Contact</a></li>
       </ul>
     </nav>
 
@@ -94,7 +95,7 @@
 
       <div class="hero-visual">
         <div class="hero-image-wrap">
-          <img src="public/logos/headderimg.png" alt="Retenzy Dashboard Preview" class="hero-image">
+          <img src="https://raw.githubusercontent.com/Sarvdnya/landing-page/main/public/logos/headderimg.png" alt="Retenzy Dashboard Preview" class="hero-image">
         </div>
       </div>
     </div>
@@ -254,7 +255,7 @@
         <span class="integration-sub">Transactional Email</span>
       </div>
       <div class="integration-card">
-        <div class="integration-icon"><img src="https://raw.githubusercontent.com/Sarvdnya/landing-page/main/public/assets/integrations/zendesk.svg" alt="Mailchimp" loading="lazy"></div>
+        <div class="integration-icon"><img src="https://raw.githubusercontent.com/Sarvdnya/landing-page/refs/heads/main/public/assets/integrations/mailchimp.svg" alt="Mailchimp" loading="lazy"></div>
         <strong>Mailchimp</strong>
         <span class="integration-sub">Email Marketing</span>
       </div>
@@ -430,9 +431,100 @@
 </section>
 
 <!-- ============================================================
+     PRICING
+     ============================================================ -->
+<section id="pricing" class="pricing-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Pricing</h2>
+      <p>Choose the plan that best fits your business.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- 500 Orders -->
+      <div class="pricing-card">
+        <div class="plan-top">
+          <span class="orders">500 Orders/month</span>
+          <h3>$19 <span>/ month</span></h3>
+          <p class="save">or $180/year and save 21%</p>
+          <p>Up to 500 orders, Post limit $15 per 100 orders</p>
+        </div>
+
+        <h4>Features</h4>
+        <ul>
+          <li>✔ Pay as your orders grow</li>
+          <li>✔ All Loyalty, Rewards & Review features</li>
+          <li>✔ Up to 500 monthly Orders</li>
+          <li>✔ Live chat support, customizations</li>
+          <li>✔ 15+ widgets & Advanced analytics</li>
+        </ul>
+
+        <a href="https://apps.shopify.com/retenzy-loyalty-reward-program" target="_blank" class="pricing-btn">
+          Get Started
+        </a>
+      </div>
+
+      <!-- Popular -->
+      <div class="pricing-card featured">
+        <span class="badge">Most Popular</span>
+
+        <div class="plan-top">
+          <span class="orders">1,000 Orders/month</span>
+          <h3>$40 <span>/ month</span></h3>
+          <p class="save">or $384/year and save 20%</p>
+          <p>1000 Monthly orders, then $10 per additional 100 orders</p>
+        </div>
+
+        <h4>Features</h4>
+        <ul>
+          <li>✔ Pay as your orders grow</li>
+          <li>✔ All Loyalty, Rewards & Review features</li>
+          <li>✔ Up to 1,000 monthly Orders</li>
+          <li>✔ Live chat support, customizations</li>
+          <li>✔ 15+ widgets & Advanced analytics</li>
+        </ul>
+
+        <a href="https://apps.shopify.com/retenzy-loyalty-reward-program" target="_blank" class="pricing-btn">
+          Get Started
+        </a>
+      </div>
+
+      <!-- 5000 -->
+      <div class="pricing-card">
+        <div class="plan-top">
+          <span class="orders">5,000 Orders/month</span>
+          <h3>$149 <span>/ month</span></h3>
+          <p class="save">or $1,490/year and save 17%</p>
+          <p>5000 Monthly orders, then $3 per additional 100 orders</p>
+        </div>
+
+        <h4>Features</h4>
+        <ul>
+          <li>✔ All Loyalty, Rewards & Review features</li>
+          <li>✔ Up to 5,000 monthly Orders</li>
+          <li>✔ Live chat support, customizations</li>
+          <li>✔ 15+ widgets & Advanced analytics</li>
+        </ul>
+
+        <a href="https://apps.shopify.com/retenzy-loyalty-reward-program" target="_blank" class="pricing-btn">
+          Get Started
+        </a>
+      </div>
+
+    </div>
+
+    <p class="pricing-note">
+      All charges are billed in USD. Recurring and usage-based charges are billed every 30 days.
+    </p>
+
+  </div>
+</section>
+
+<!-- ============================================================
      FINAL CTA
      ============================================================ -->
-<section class="section">
+<section id="contact" class="section">
   <div class="container">
     <div class="final-cta reveal">
       <h2>Ready to Grow Your Customer Loyalty?</h2>
@@ -668,7 +760,7 @@ const sections = navLinks
   .filter(Boolean);
 
 function onScroll(){
-  header.classList.toggle('scrolled', window.scrollY > 8);
+  header.classList.toggle('scrolled', window.scrollY > 80);
 
   let currentId = sections[0]?.id;
   const scrollPos = window.scrollY + var_headerOffset();
