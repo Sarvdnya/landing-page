@@ -34,7 +34,7 @@
       <ul>
         <li><a href="#features" data-section="features">Features</a></li>
         <li><a href="#benefits" data-section="benefits">Benefits</a></li>
-        <li><a href="#platforms" data-section="platforms">Platforms</a></li>
+        <li><a href="#integrations" data-section="integrations">Integrations</a></li>
         <li><a href="#customers" data-section="customers">Customers</a></li>
         <li><a href="#reviews" data-section="reviews">Reviews</a></li>
         <li><a href="#faq" data-section="faq">FAQ</a></li>
@@ -85,7 +85,7 @@
           </div>
 
           <div class="trust-badge">
-            🌍 30+ Countries
+            🌍 17+ Countries
           </div>
 
           <div class="trust-badge">
@@ -99,10 +99,11 @@
           <div class="orbit-ring"></div>
           <div class="orbit-ring r2"></div>
 
-          <div class="orbit-node n1">🎁</div>
-          <div class="orbit-node n2">⭐</div>
-          <div class="orbit-node n3">🔁</div>
-          <div class="orbit-node n4">💳</div>
+          <div class="orbit-node-wrap"><div class="orbit-node">🎁</div></div>
+          <div class="orbit-node-wrap" style="animation-delay:-15s"><div class="orbit-node">🔁</div></div>
+
+          <div class="orbit-node-wrap-inner"><div class="orbit-node">💳</div></div>
+          <div class="orbit-node-wrap-inner" style="animation-delay:-11s"><div class="orbit-node">⭐</div></div>
 
           <div class="orbit-core">
             <strong id="orbitPoints">12,480</strong>
@@ -136,6 +137,21 @@
         <div class="kpi-num" data-count="4.9" data-decimal="1" data-suffix="/5">0</div>
         <div class="kpi-label">Merchant Rating</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OUR STORES
+     ============================================================ -->
+<section class="section section-light" id="stores">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Stores</span>
+      <h2>Our Stores</h2>
+      <p>Brands powered by Retenzy.</p>
+    </div>
+    <div class="store-grid reveal-stagger reveal" id="storeGrid">
     </div>
   </div>
 </section>
@@ -187,13 +203,13 @@
     </div>
     <div class="card-grid grid-4 reveal-stagger reveal">
       <div class="feature-card"><div class="feature-icon">🏆</div><h3>Reward Points</h3><p>Let customers earn points on purchases, signups, and social actions.</p></div>
-      <div class="feature-card"><div class="feature-icon">👑</div><h3>VIP Membership</h3><p>Tiered VIP programs that reward your best customers automatically.</p></div>
+      <div class="feature-card"><div class="feature-icon">👑</div><h3>VIP Tier</h3><p>Tiered VIP programs that reward your best customers automatically.</p></div>
       <div class="feature-card"><div class="feature-icon">🔗</div><h3>Referral Program</h3><p>Turn happy customers into your best acquisition channel.</p></div>
-      <div class="feature-card"><div class="feature-icon">💳</div><h3>Store Credits</h3><p>Issue and redeem store credit seamlessly at checkout.</p></div>
+      <div class="feature-card"><div class="feature-icon">💳</div><h3>Membership</h3><p>Issue and redeem store credit seamlessly at checkout.</p></div>
       <div class="feature-card"><div class="feature-icon">✍️</div><h3>Reviews</h3><p>Collect and reward verified reviews to build trust and points.</p></div>
       <div class="feature-card"><div class="feature-icon">🎂</div><h3>Birthday Rewards</h3><p>Automated birthday perks that keep customers engaged year-round.</p></div>
       <div class="feature-card"><div class="feature-icon">📈</div><h3>Analytics</h3><p>Real-time dashboards on LTV, repeat rate, and program ROI.</p></div>
-      <div class="feature-card"><div class="feature-icon">🎮</div><h3>Gamification</h3><p>Badges, streaks, and challenges that make earning rewards fun.</p></div>
+      <div class="feature-card"><div class="feature-icon">🎮</div><h3>Customer reward</h3><p>Badges, streaks, and challenges that make earning rewards fun.</p></div>
     </div>
   </div>
 </section>
@@ -219,16 +235,41 @@
 </section>
 
 <!-- ============================================================
-     SUPPORTED PLATFORMS
+     INTEGRATIONS SECTION
      ============================================================ -->
-<section class="section section-light" id="platforms">
+<section class="section section-light" id="integrations">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow">Platforms</span>
-      <h2>Supported Platforms</h2>
-      <p>Trusted by growing Shopify brands worldwide.</p>
+      <span class="eyebrow">Integrations</span>
+      <h2>Plays nicely with your existing stack</h2>
+      <p>Connect Retenzy to the tools you already use — no dev work required.</p>
     </div>
-    <div class="platform-grid reveal-stagger reveal" id="platformGrid">
+    <div class="card-grid grid-5 reveal-stagger reveal" id="integrationGrid">
+      <div class="integration-card">
+        <div class="integration-icon"><img src="http://raw.githubusercontent.com/Sarvdnya/landing-page/5f84c1e9bb16b41ae8086aabc57bccd1b56623c0/public/assets/integrations/klaviyo.svg" alt="Klaviyo" loading="lazy"></div>
+        <strong>Klaviyo</strong>
+        <span class="integration-sub">Email &amp; SMS</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon"><img src="https://raw.githubusercontent.com/Sarvdnya/landing-page/main/public/assets/integrations/sendgrid.svg" alt="SendGrid" loading="lazy"></div>
+        <strong>SendGrid</strong>
+        <span class="integration-sub">Transactional Email</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon"><img src="https://raw.githubusercontent.com/Sarvdnya/landing-page/main/public/assets/integrations/zendesk.svg" alt="Mailchimp" loading="lazy"></div>
+        <strong>Mailchimp</strong>
+        <span class="integration-sub">Email Marketing</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon"><img src="https://raw.githubusercontent.com/Sarvdnya/landing-page/main/public/assets/integrations/omnisend.png" alt="Omnisend" loading="lazy"></div>
+        <strong>Omnisend</strong>
+        <span class="integration-sub">Omnichannel Marketing</span>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon"><img src="https://raw.githubusercontent.com/Sarvdnya/landing-page/main/public/assets/integrations/zendesk.svg" alt="Zendesk" loading="lazy"></div>
+        <strong>Zendesk</strong>
+        <span class="integration-sub">Customer Support</span>
+      </div>
     </div>
   </div>
 </section>
@@ -413,53 +454,24 @@
      ============================================================ -->
 <footer class="site-footer" id="footer">
   <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo">
-          <img src="https://raw.githubusercontent.com/Sarvdnya/landing-page/main/public/assets/logos/retenzylogo.png" alt="Retenzy" class="logo-img">
-          <span class="brand-text"><span class="brand-orange">Reten</span><span class="brand-blue">zy</span></span>
-        </div>
-        <p>Loyalty &amp; rewards for Shopify brands that want customers to come back.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="Retenzy on X">𝕏</a>
-          <a href="#" aria-label="Retenzy on Instagram">◎</a>
-          <a href="#" aria-label="Retenzy on LinkedIn">in</a>
-          <a href="#" aria-label="Retenzy on YouTube">▶</a>
-        </div>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="https://raw.githubusercontent.com/Sarvdnya/landing-page/main/public/assets/logos/retenzylogo.png" alt="Retenzy" class="footer-logo-img">
+        <span class="brand-text"><span class="brand-blue">Reten</span><span class="brand-orange">zy</span></span>
       </div>
-      <div>
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#features">About</a></li>
-          <li><a href="#customers">Customers</a></li>
-          <li><a href="#footer">Careers</a></li>
-        </ul>
+      <div class="footer-socials">
+        <a href="#" aria-label="Retenzy on X">𝕏</a>
+        <a href="#" aria-label="Retenzy on Instagram">◎</a>
+        <a href="#" aria-label="Retenzy on LinkedIn">in</a>
+        <a href="#" aria-label="Retenzy on YouTube">▶</a>
       </div>
-      <div>
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#platforms">Platforms</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#roi">ROI Calculator</a></li>
-        </ul>
+      <div class="footer-divider"></div>
+      <div class="footer-copy">&copy; <span id="year"></span> Retenzy. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <span class="footer-legal-dot">&middot;</span>
+        <a href="#">Terms</a>
       </div>
-      <div>
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#footer">Help Center</a></li>
-          <li><a href="#footer">Contact Us</a></li>
-          <li><a href="#footer">System Status</a></li>
-          <li><a href="#footer">Book Demo</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; <span id="year"></span> Retenzy. All rights reserved.</span>
-      <ul>
-        <li><a href="#footer">Privacy</a></li>
-        <li><a href="#footer">Terms</a></li>
-      </ul>
     </div>
   </div>
 </footer>
@@ -526,7 +538,7 @@
       </div>
       <h3>You're all set!</h3>
       <p>Thanks for reaching out — our team will contact you shortly to get your loyalty program started.</p>
-      <button class="btn btn-secondary" id="modalDoneBtn" style="margin-top:22px;">Close</button>
+      <a href="#" class="btn btn-primary" id="modalSuccessBtn" style="margin-top:22px;" target="_blank">View App</a>
     </div>
   </div>
 </div>
@@ -542,14 +554,23 @@ const CONFIG = {
   // Video section: swap this single URL and the embed updates everywhere.
   youtubeVideoURL: "https://www.youtube.com/embed/G1kIFxpWIpk",
 
-  // Platforms shown in the static grid (name only — logos rendered via letter placeholder).
-  platforms: [
-    "Perfume Project", "Preetiwear", "Discover Skon", "Boditronics",
-    "Lashribbons", "Asoka.pt", "Trekmonk", "Resolve", "Hashwear", "Homeyou"
+  stores: [
+    { name: "Perfume Project", logo: "public/logos/perfume-project.png" },
+    { name: "Preetiwear",      logo: "public/logos/preetiwear.png" },
+    { name: "Discover Skon",   logo: "public/logos/discover-skon.png" },
+    { name: "Boditronics",     logo: "public/logos/boditronics.png" },
+    { name: "Lashribbons",     logo: "public/logos/lashribbons.png" },
+    { name: "Asoka.pt",        logo: "public/logos/asoka.png" },
+    { name: "Trekmonk",        logo: "public/logos/trekmonk.png" },
+    { name: "Resolve",         logo: "public/logos/resolve.png" },
+    { name: "Hashwear",        logo: "public/logos/hashwear.png" },
+    { name: "Homeyou",         logo: "public/logos/homeyou.png" },
   ],
   demoLink: "#footer",
   freeTrialLink: "#footer"
 };
+
+const SUCCESS_REDIRECT_URL = "https://apps.shopify.com/retenzy-loyalty-reward-program";
 
 /* ============================================================
    INIT — apply CONFIG to the DOM
@@ -558,24 +579,29 @@ document.addEventListener('DOMContentLoaded', () => {
   document.title = `${CONFIG.companyName} — Loyalty & Rewards for Shopify Brands`;
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  renderPlatformGrid();
+  renderStoreGrid();
   setupVideo();
   setupReviewCarousel();
+  modalSuccessBtn.href = SUCCESS_REDIRECT_URL;
 });
 
-/* ---------- Platform grid (static, no carousel) ---------- */
-function renderPlatformGrid(){
-  const grid = document.getElementById('platformGrid');
+/* ---------- Store grid ---------- */
+function renderStoreGrid(){
+  const grid = document.getElementById('storeGrid');
   if (!grid) return;
   const palette = ['#0937ed','#e0816b','#1aab6b','#f5a623','#8b5cf6','#ec4899','#06b6d4','#f97316','#6366f1','#14b8a6'];
-  grid.innerHTML = CONFIG.platforms.map((name, i) => {
+  grid.innerHTML = CONFIG.stores.map((s, i) => {
+    const name = s.name;
     const initial = name.charAt(0).toUpperCase();
     const color = palette[i % palette.length];
-    return `<div class="platform-item">
-      <div class="platform-icon" style="background:${color}11;color:${color}">
-        <span class="platform-letter">${initial}</span>
+    return `<div class="store-item">
+      <div class="store-logo-wrap">
+        <img class="store-logo" src="${escapeAttr(s.logo)}" alt="${escapeHTML(name)}"
+          loading="lazy"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="store-letter" style="display:none;background:${color}11;color:${color}">${initial}</span>
       </div>
-      <span class="platform-name">${escapeHTML(name)}</span>
+      <span class="store-name">${escapeHTML(name)}</span>
     </div>`;
   }).join('');
 }
@@ -584,6 +610,7 @@ function escapeHTML(str){
   div.textContent = str ?? '';
   return div.innerHTML;
 }
+function escapeAttr(str){ return (str ?? '').replace(/"/g,'&quot;'); }
 
 /* ---------- Video: lazy-load iframe from CONFIG.youtubeVideoURL ---------- */
 function setupVideo(){
@@ -810,7 +837,7 @@ calcROI();
    ============================================================ */
 const modalOverlay = document.getElementById('modalOverlay');
 const modalClose = document.getElementById('modalClose');
-const modalDoneBtn = document.getElementById('modalDoneBtn');
+const modalSuccessBtn = document.getElementById('modalSuccessBtn');
 const modalFormWrap = document.getElementById('modalFormWrap');
 const modalSuccess = document.getElementById('modalSuccess');
 const leadForm = document.getElementById('leadForm');
@@ -829,8 +856,7 @@ function closeModal(){
 }
 document.querySelectorAll('.js-open-modal').forEach(btn => btn.addEventListener('click', openModal));
 modalClose.addEventListener('click', closeModal);
-modalDoneBtn.addEventListener('click', () => {
-  closeModal();
+modalSuccessBtn.addEventListener('click', () => {
   setTimeout(resetModal, 400);
 });
 modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
@@ -839,7 +865,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetModal(){
-  leadForm.reset();
   leadForm.classList.remove('hide');
   modalSuccess.classList.remove('show');
   document.querySelectorAll('.field.invalid').forEach(f => f.classList.remove('invalid'));
