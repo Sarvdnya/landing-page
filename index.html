@@ -36,15 +36,13 @@
         <li><a href="#benefits" data-section="benefits">Benefits</a></li>
         <li><a href="#integrations" data-section="integrations">Integrations</a></li>
         <li><a href="#customers" data-section="customers">Customers</a></li>
-        <li><a href="#reviews" data-section="reviews">Reviews</a></li>
         <li><a href="#faq" data-section="faq">FAQ</a></li>
         <li><a href="#footer" data-section="footer">Contact</a></li>
       </ul>
     </nav>
 
     <div class="header-actions">
-      <button class="btn btn-secondary btn-sm js-open-modal">Book Demo</button>
-      <button class="btn btn-primary btn-sm js-open-modal"><span class="long">Start&nbsp;</span>Free Trial</button>
+      <button class="btn btn-primary btn-header js-open-modal">Book Demo</button>
       <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mainNav">
         <span></span>
       </button>
@@ -106,7 +104,7 @@
 <!-- ============================================================
      GROWTH ENGINE
      ============================================================ -->
-<section class="section" id="growth" style="padding-top:80px;padding-bottom:80px;">
+<section class="section" id="growth" style="padding-top:80px;padding-bottom:40px;">
   <div class="container">
     <div class="growth-content reveal">
       <h2 class="growth-heading">More Than a Loyalty App. A Growth Engine for Shopify.</h2>
@@ -118,7 +116,7 @@
 <!-- ============================================================
      SOCIAL PROOF — KPI CARDS
      ============================================================ -->
-<section class="section" aria-label="Retenzy by the numbers">
+<section class="section" aria-label="Retenzy by the numbers" style="padding-top:40px;">
   <div class="container">
     <div class="kpi-grid reveal-stagger reveal">
       <div class="kpi-card">
@@ -144,7 +142,7 @@
 <!-- ============================================================
      OUR STORES
      ============================================================ -->
-<section class="section section-light" id="stores">
+<section class="section section-light" id="stores" style="padding-top:40px;">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Stores</span>
@@ -159,7 +157,7 @@
 <!-- ============================================================
      PROBLEM SECTION
      ============================================================ -->
-<section class="section" id="problem">
+<section class="section" id="problem" style="padding-top:40px;">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">The Problem</span>
@@ -202,14 +200,14 @@
       <p>A complete loyalty toolkit, built for Shopify and ready to launch in minutes.</p>
     </div>
     <div class="card-grid grid-4 reveal-stagger reveal">
-      <div class="feature-card"><div class="feature-icon">🏆</div><h3>Reward Points</h3><p>Let customers earn points on purchases, signups, and social actions.</p></div>
-      <div class="feature-card"><div class="feature-icon">👑</div><h3>VIP Tier</h3><p>Tiered VIP programs that reward your best customers automatically.</p></div>
-      <div class="feature-card"><div class="feature-icon">🔗</div><h3>Referral Program</h3><p>Turn happy customers into your best acquisition channel.</p></div>
-      <div class="feature-card"><div class="feature-icon">💳</div><h3>Membership</h3><p>Issue and redeem store credit seamlessly at checkout.</p></div>
-      <div class="feature-card"><div class="feature-icon">✍️</div><h3>Reviews</h3><p>Collect and reward verified reviews to build trust and points.</p></div>
-      <div class="feature-card"><div class="feature-icon">🎂</div><h3>Birthday Rewards</h3><p>Automated birthday perks that keep customers engaged year-round.</p></div>
-      <div class="feature-card"><div class="feature-icon">📈</div><h3>Analytics</h3><p>Real-time dashboards on LTV, repeat rate, and program ROI.</p></div>
-      <div class="feature-card"><div class="feature-icon">🎮</div><h3>Customer reward</h3><p>Badges, streaks, and challenges that make earning rewards fun.</p></div>
+      <div class="feature-card"><div class="feature-icon">🏆</div><h3>Reward Points</h3><p>Reward every purchase to increase repeat orders and customer lifetime value.</p></div>
+      <div class="feature-card"><div class="feature-icon">👑</div><h3>VIP Tier</h3><p>Keep your highest-value customers loyal with exclusive VIP benefits.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔗</div><h3>Referral Program</h3><p>Encourage happy customers to bring friends and lower your acquisition costs.</p></div>
+      <div class="feature-card"><div class="feature-icon">💳</div><h3>Membership</h3><p>Increase retention with exclusive perks, credits, and member-only rewards.</p></div>
+      <div class="feature-card"><div class="feature-icon">✍️</div><h3>Reviews</h3><p>Incentivize reviews to build social proof and win more first-time buyers.</p></div>
+      <div class="feature-card"><div class="feature-icon">🎂</div><h3>Birthday Rewards</h3><p>Create memorable moments that bring customers back every year.</p></div>
+      <div class="feature-card"><div class="feature-icon">📈</div><h3>Analytics</h3><p>See who is loyal, who's at risk, and what's driving repeat purchases.</p></div>
+      <div class="feature-card"><div class="feature-icon">🎮</div><h3>Customer rewards</h3><p>Gamify shopping flow to keep customers engaged long after their first interaction.</p></div>
     </div>
   </div>
 </section>
@@ -682,7 +680,7 @@ function onScroll(){
   });
 }
 function var_headerOffset(){
-  return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) + 40;
+  return 120;
 }
 window.addEventListener('scroll', onScroll, { passive:true });
 onScroll();
